@@ -1,0 +1,4 @@
+#last edited by kyle @ 3/15/2023
+node_modules
+.env
+config.json
