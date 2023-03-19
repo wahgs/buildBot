@@ -5,7 +5,7 @@ const token = process.env.DISCORD_TOKEN
 import {makeCategoryAndMessage, checkCategoryExists} from 'acts/utils.js'
 
 //new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+export const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 //When the client is ready, run this code (once)
 // 'c' is the event parameter, kept seperate from the defined client
