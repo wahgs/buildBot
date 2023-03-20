@@ -1,6 +1,6 @@
 //Necessary Discord.js classes
-import { findMessage } from 'acts/entity.js';
-import { speakScript } from 'acts/speakWithUser.js';
+import { findMessage } from 'lib/entity.js';
+import { speakScript } from 'utils/script.js';
 import { Client, Events, GatewayIntentBits } from 'discord.js';
 
 //login token (pulled from environment variables)
