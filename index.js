@@ -23,9 +23,13 @@ client.once(Events.ClientReady, c => {
 
 client.on('messageReactionAdd', async (reaction, user) => {
     //ensures that the message
-    if ( reaction.message === findMessage && reaction.emoji.identifier === emoji ) {
+    if ( reaction.message === findMessage && reaction.emoji.identifier === emoji )
         speakScript(user)
-    }
+
+    //if a user reacts to the message with a different emoji than the bot put
+    if (reaction.message === findMessage && reaction.emoji.identifier !== emoji)
+        reaction.remove
+
     return;
 })
 
