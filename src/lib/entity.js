@@ -32,23 +32,3 @@ export const findChannel = async (guildId, query) => {
     return null;
 
 }
-
-export const findMessage = async (guildId) => {//kyle 3/20/23
-    const guild = guildId
-    const chan = await findChannel(guild, 'buildBot');
-    const messages = await message.chan.messages.fetch();
-    
-    //This checks that there is not more than one message in the channel.
-    if ( await messages.size === 1 && query === await messages[0].content )
-        return await messages[0].cache;//returns the cache
-    
-    //if there is more than one message in the text channel
-    if ( messages.size > 1 ) {
-        console.log(`There were too many messages in the channel(${messages.size}), deleting all messages, and re-sending the promp.`);
-        await chan.bulkDelete(messages);
-        return null;
-    }
-    
-    return null;
-
-    };
