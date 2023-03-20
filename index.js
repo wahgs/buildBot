@@ -4,6 +4,7 @@ const { Client, Events, GatewayIntenBits, ActivityFlags, MessageReaction, } = re
 //login token (pulled from environment variables)
 const token = process.env.DISCORD_TOKEN
 
+import { speakScript } from 'acts/speakWithUser.js'
 import { getGuild, getChannel, findChannel, findMessage, emojiType } from 'acts/entity.js'
 import { attemptToCreateChannels, messageSend } from 'acts/utils.js'
 
@@ -22,8 +23,8 @@ client.once(Events.ClientReady, c => {
 
 client.on('messageReactionAdd', async (reaction, user) => {
     //ensures that the message
-    if ( reaction.message.channel === findChannel && reaction.message === findMessage && reaction.emoji.identifier === emoji ) {
-        
+    if ( reaction.message === findMessage && reaction.emoji.identifier === emoji ) {
+        speakScript(user)
     }
     return;
 })
