@@ -1,12 +1,11 @@
 import { ActionRowBuilder } from '@discordjs/builders'
-import { client } from 'client'//imports the client
-import { ButtonStyle } from 'discord.js'
+import { client } from '../index'
+import { ButtonBuilder, ButtonStyle } from 'discord.js'
 
 
 
 
 export const speakScript = async (user) => {
-
     //creates a button
     const row = new ActionRowBuilder()
         .addComponents(
@@ -17,8 +16,7 @@ export const speakScript = async (user) => {
     );
     
     //sends the message to the user
-    messageLink.send( { content: 'Let\'s being your build!', components: [row] });
-
+  //  messageLink.send( { content: 'Let\'s being your build!', components: [row] });
     
     /**
      * TODO:

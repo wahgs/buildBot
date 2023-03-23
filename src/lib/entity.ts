@@ -1,4 +1,4 @@
-import { client } from 'client';
+import { client } from '../index';
 
 export const getGuild = async (guildId) => {
     // Fetches guild from API, then grabs the full discord.js guild entity from the cache (Two different entities, discord.js versions includes more quality of life features)
@@ -19,7 +19,7 @@ export const findChannel = async (guildId, query) => {
     await guild.channels.fetch();
 
     // Find channel matching channelName by looping through cache
-    for (const channel of guild.channels.cache) {
+    for (const channel of guild.channels.cache.values()) {
         if (query.name && channel.name != query.name)
             continue;
 
