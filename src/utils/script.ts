@@ -1,18 +1,13 @@
 import { client } from '../index'
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, Events, GatewayIntentBits, GuildTextBasedChannel, IntentsBitField, Message } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, Events, GatewayIntentBits, GuildTextBasedChannel, IntentsBitField, Interaction, Message } from 'discord.js';
 import { collectButton, collectMessage } from '../lib/collector';
 import { acceptableGamemodeTypes } from './acceptableLists'
 
-
 export const buttonBuild = async (customId: string, label: string, style: ButtonStyle) => {
-  const row = new ActionRowBuilder()
-    .addComponents(
-      new ButtonBuilder()
+  return new ButtonBuilder()
         .setCustomId(customId)
         .setLabel(label)
         .setStyle(style),
-    );
-  return [row]; //converted to a list so it can be called in the 'reply' discord.js function
 }
 
 //improved embedBuilder readability, by requiring two strings.
@@ -24,12 +19,10 @@ export const embedBuild = async (title, description) => {
   return embed;
 }
 
-export const speakScript = async (interaction, userId) => {
-
-  //once the 'Begin' button is clicked:
+const compScript = async (interaction: Interaction) => {
   const replyMessage = await interaction.reply({
     embeds: embedBuild('Competitive or Public Matches?', 'Is this build a [comp]etitive CDL class? Or a [pub]lic match build?'),
-    components: buttonBuild('fart', 'Fart', ButtonStyle.Primary),
+    components: [ buttonBuild('competitive', 'Competitive', ButtonStyle.Danger), buttonBuild('pubs', 'Public Matches', ButtonStyle.Primary) ],
     ephemeral: true
   });
 
@@ -37,14 +30,29 @@ export const speakScript = async (interaction, userId) => {
   await resultInteraction.deferUpdate();
 
   switch (resultInteraction.customId) {
-    case '1': {
-
-      break;
+    case 'competitive': {
+      const gamemodeType = 'competitive'
+      return gamemodeType;
     }
-    case '2': {
-
+    case 'pubs': {
+      const gamemodeType = 'pubs'
+      return gamemodeType;
     }
   }
+}
+
+
+
+export const speakScript = async (interaction, userId) => {
+
+  //once the 'Begin' button is clicked:
+  
+
+  await interaction.editReply({
+    embeds: embedBuild('What would you like ', ''),
+    components: [ ],
+    ephemeral: true 
+  })
 
   let reply = await collectMessage(interaction.channel as GuildTextBasedChannel, interaction.user.id);
 
