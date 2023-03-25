@@ -4,7 +4,7 @@
 
 
 //var1 gamemodeType
-const acceptableGamemodeTypes = [
+export const acceptableGamemodeTypes = [
     'comp',
     'competitive',
     'pubs',
