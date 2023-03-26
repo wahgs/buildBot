@@ -1,5 +1,5 @@
 import { client } from '../index'
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, Events, GatewayIntentBits, GuildTextBasedChannel, IntentsBitField, Interaction, Message } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, Events, GatewayIntentBits, GuildTextBasedChannel, IntentsBitField, Interaction, InteractionCollector, Message } from 'discord.js';
 import { collectButton, collectMessage } from '../lib/collector';
 import { acceptableGamemodeTypes } from './acceptableLists'
 
@@ -73,7 +73,7 @@ const primaryScript = async (interaction: Interaction) => {
 
     switch(resultInteraction.customId) {
       case 'ar':{
-        const replyMessage = await interaction.reply({
+        const replyMessage = await interaction.rep
           
         })
       }
@@ -81,6 +81,23 @@ const primaryScript = async (interaction: Interaction) => {
   }
 }
 
+const primaryScript = async (primaryType: string, interaction: Interaction) => {
+  
+  //fetches the list of specified primary from the database endpoint
+  const primaryObject = [fetch(/*add api endpoint for grabbing weapons*/ `http://apiendpoint/primaryScript?${primaryType}`)]
+
+
+  //assigned the various primaries into buttons
+  let buttonsInThisRow:number = 0;
+  for (i = primaryObject.length, i = 0, i+= ) {
+    if(buttonsInThisRow = 5) {
+      //make new row
+    }
+    buttonBuild('')
+
+  }
+
+}
 
 
 
