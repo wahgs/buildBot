@@ -3,6 +3,8 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, Eve
 import { collectButton, collectMessage } from '../lib/collector';
 import { acceptableGamemodeTypes } from './acceptableLists'
 
+let comp, Primary, Secondary, Lethal, Tactical, Perk1, Perk2, Perk3, fieldUpgrade1, fieldUpgrade2: boolean
+
 export const buttonBuild = async (customId: string, label: string, style: ButtonStyle) => {
   return new ButtonBuilder()
         .setCustomId(customId)
@@ -20,7 +22,7 @@ export const embedBuild = async (title, description) => {
 }
 
 const compScript = async (interaction: Interaction) => {
-  const replyMessage = await interaction.reply({
+  const replyMessage = await interaction.edit({
     embeds: embedBuild('Competitive or Public Matches?', 'Is this build a [comp]etitive CDL class? Or a [pub]lic match build?'),
     components: [ buttonBuild('competitive', 'Competitive', ButtonStyle.Danger), buttonBuild('pubs', 'Public Matches', ButtonStyle.Primary) ],
     ephemeral: true
@@ -43,25 +45,59 @@ const compScript = async (interaction: Interaction) => {
 
 
 
+const primaryScript = async (interaction: Interaction) => {
+  if (Primary === true)
+    return;
+  
+  else {
+    const buttons = [
+      buttonBuild('ar', 'Assault Rifle' ButtonStyle.Primary),
+      buttonBuild('br', 'Battle Rifle', ButtonStyle.Primary),
+      buttonBuild('smg', 'Sub-Machine Gun \(SMG\)', ButtonStyle.Primary),
+      buttonBuild('sg', 'Shotgun', ButtonStyle.Primary),
+      buttonBuild('lmg', 'Light Machine-Gun \(LMG\)', ButtonStyle.Primary),
+      buttonBuild('mr', 'Marksman Rifle', ButtonStyle.Primary),
+      buttonBuild('sr', 'Sniper Rifle', ButtonStyle.Primary),
+      buttonBuild('ml', 'Melee', ButtonStyle.Primary)
+    ]
+
+    const replyMessage = await interaction.reply({
+      // ar, br, smg, sg, lmg, mr, sr, melee
+      embeds: embedBuild('Primary Weapon Selection', 'From the buttons below, please select the weapon class of your Primary weapon.'),
+      components: buttons,
+      ephemeral: true
+    })
+
+    let resultInteraction = await collectButton(replyMessage);
+    await resultInteraction.deferUpdate();
+
+    switch(resultInteraction.customId) {
+      case 'ar':{
+        const replyMessage = await interaction.reply({
+          
+        })
+      }
+    }
+  }
+}
+
+
+
+
+
 export const speakScript = async (interaction, userId) => {
 
   //once the 'Begin' button is clicked:
-  
+  let comp, Primary, Secondary, Lethal, Tactical, Perk1, Perk2, Perk3, fieldUpgrade1, fieldUpgrade2: boolean
+
 
   await interaction.editReply({
-    embeds: embedBuild('What would you like ', ''),
+    embeds: embedBuild('What would you like to select?', ''),
     components: [ ],
     ephemeral: true 
   })
 
   let reply = await collectMessage(interaction.channel as GuildTextBasedChannel, interaction.user.id);
-
-  //sets reply to a string so it can be assigned to a JSON object for storage purposes.
-  const gamemodeType: string = reply.content
-
-  /*this is the format for the rest of the speakScript
-  //NOTE
-  This is to be updated in the *beta* version of this bot to be all button interactions.*/
 
   await interaction.editReply({
     embeds: embedBuild('What is the category of the primary weapon of this class?', '[AR] Assault Rifle, [SMG] Sub-machine gun, [BR] Battle Rifle, [SG] Shotgun, [LMG] Light Machine-Gun, [MR] Marksman Rifles, [SR] Sniper Rifles'),
