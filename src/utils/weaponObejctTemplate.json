@@ -1,0 +1,24 @@
+{
+    "weaponClass" : {
+        "ar" : {
+            "kastov-74u": {
+                "comp" : false,
+                "barrel" : {
+                    "attatch1": {
+                        "horizontal":{
+                            "name1" : "ads",
+                            "rightName": "sprint speed",
+                            "leftTopAmount": 5.15,
+                            "rightTopAmount": 1.15,
+                            "sliderMeasurement": "mm" 
+                        },
+                        "vertical":{
+                            "name1": ""
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+}

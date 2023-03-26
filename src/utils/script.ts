@@ -61,7 +61,7 @@ const primaryScript = async (interaction: Interaction) => {
       buttonBuild('ml', 'Melee', ButtonStyle.Primary)
     ]
 
-    const replyMessage = await interaction.reply({
+    const replyMessage = await interaction.editReply({
       // ar, br, smg, sg, lmg, mr, sr, melee
       embeds: embedBuild('Primary Weapon Selection', 'From the buttons below, please select the weapon class of your Primary weapon.'),
       components: buttons,
@@ -73,7 +73,7 @@ const primaryScript = async (interaction: Interaction) => {
 
     switch(resultInteraction.customId) {
       case 'ar':{
-        const replyMessage = await interaction.rep
+        const replyMessage = await interaction.editReply
           
         })
       }
@@ -93,7 +93,7 @@ const primaryScript = async (primaryType: string, interaction: Interaction) => {
     if(buttonsInThisRow = 5) {
       //make new row
     }
-    buttonBuild('')
+    buttonBuild(primaryObject{i})
 
   }
 
