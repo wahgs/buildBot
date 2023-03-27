@@ -24,24 +24,24 @@
                         "this is a random variable":"blah"
                     }
                 },
-            "barrel" : {
-                "schlager tango": {
-                    "horizontal": {
-                        "name1" : "hip recoil control",
-                        "name2" : "hip walking speed",
-                        "name1MaxValue": 0.80,
-                        "name2MaxValue": -0.80,
-                        "sliderMeasurement": "oz"
-                    },
-                    "vertical": {
-                        "name1": "ads",
-                        "name2": "hip fire accuracy",
-                        "name1MaxValue": -0.40,
-                        "name2MaxValue": 0.40,
-                        "sliderMeasurement": "in"
+                "barrel" : {
+                    "schlager tango": {
+                        "horizontal": {
+                            "name1" : "hip recoil control",
+                            "name2" : "hip walking speed",
+                            "name1MaxValue": 0.80,
+                            "name2MaxValue": -0.80,
+                            "sliderMeasurement": "oz"
+                        },
+                        "vertical": {
+                            "name1": "ads",
+                            "name2": "hip fire accuracy",
+                            "name1MaxValue": -0.40,
+                            "name2MaxValue": 0.40,
+                            "sliderMeasurement": "in"
+                        }
                     }
                 }
-            }
             }
         }
     },
