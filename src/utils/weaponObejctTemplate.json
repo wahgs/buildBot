@@ -1,24 +1,118 @@
 {
-    "weaponClass" : {
+    "primary" : {
         "ar" : {
-            "kastov-74u": {
-                "comp" : false,
-                "barrel" : {
-                    "attatch1": {
+            "taq-56": {
+                "comp" : true,
+                "muzzle" : {
+                    "echoless-80": {
                         "horizontal":{
-                            "name1" : "ads",
-                            "rightName": "sprint speed",
-                            "leftTopAmount": 5.15,
-                            "rightTopAmount": 1.15,
-                            "sliderMeasurement": "mm" 
+                            "name1" : "recoil",
+                            "name2": "ads",
+                            "name1MaxValue": 1.40,
+                            "name2MaxValue": -1.40,
+                            "sliderMeasurement": "oz" 
                         },
                         "vertical":{
-                            "name1": ""
+                            "name1": "aim idle stability",
+                            "name2": "bullet velocity",
+                            "name1MaxValue": 1,
+                            "name2MaxValue": -1,
+                            "sliderMeasurement": "in" 
                         }
-                        
+                    },
+                    "blah": {
+                        "this is a random variable":"blah"
+                    }
+                },
+            "barrel" : {
+                "schlager tango": {
+                    "horizontal": {
+                        "name1" : "hip recoil control",
+                        "name2" : "hip walking speed",
+                        "name1MaxValue": 0.80,
+                        "name2MaxValue": -0.80,
+                        "sliderMeasurement": "oz"
+                    },
+                    "vertical": {
+                        "name1": "ads",
+                        "name2": "hip fire accuracy",
+                        "name1MaxValue": -0.40,
+                        "name2MaxValue": 0.40,
+                        "sliderMeasurement": "in"
+                    }
+                }
+            }
+            }
+        }
+    },
+    "secondary" :{
+        "handguns": {
+            "p890": {
+                "comp": false,
+                "barrel":{
+                    "matuzek venom": {
+                        "horizontal": {
+                            "name1" : "NULL",
+                            "name2" : "NULL",
+                            "name1MaxValue": "",
+                            "name2MaxValue": "",
+                            "sliderMeasurement": "NULL"
+                        },
+                        "vertical": {
+                            "name1": "NULL",
+                            "name2": "NULL",
+                            "name1MaxValue": "NUMBER HERE",
+                            "name2MaxValue": "NUMBER HERE",
+                            "sliderMeasurement": "NULL"
+                        }
                     }
                 }
             }
         }
+    },
+    "tactical": {
+        "comp": [
+            "TACTICALS IN COMP", "GO HERE"
+        ],
+        "casual": ["flash grenade", "shock stick", "smoke grenade", "stun grenade", "decoy grenade", "spotter scope", "stim", "heartbeat sensor", "snapshot grenade", "tear gas"]
+    },
+    "lethal" : {
+        "comp": [
+            "LETHALS IN COMP", "GO HERE"
+        ],
+        "casual" : [ "frag grenade", "proximity mine", "drill charge", "molotov cocktail", "semtex", "c4", "claymore", "thermite", "throwing knife"]
+    },
+    "base perks": {
+        "comp":[
+            "BASE PERKS IN COMP", "GO HERE"
+        ],
+        "casual":[
+            "overkill", "double time", "battle hardened", "scavenger", "bomb squad", "tracker", "strong arm", "extra tactical"
+        ]
+    },
+    "bonus perk": {
+        "comp":[
+            "BONUS PERKS IN COMP", "GO HERE"
+        ],
+        "casual":[
+            "resupply", "spotter", "cold-blooded", "fast hands", "hardline", "focus"
+        ]
+    },
+    "ultimate perk":{
+        "comp":[
+            "ULTIMATE PERKS IN COMP", "GO HERE"
+        ],
+        "casual":[
+            "high alert", "ghost", "quick fix", "overclock", "survivor", "birdseye"
+        ]
+    },
+    "field upgrades":{
+        "comp":[
+            "FIELD UPGRADES IN COMP", "GO HERE"
+        ],
+        "casual":[
+            "tactical camera", "inflatable decoy", "ddos", "deployable cover", "trophy system", "dead silence", "munitions box", "loadout drop", "portable radar", "tactical insertion",
+            "battle rage", "recon drone", "smoke airdrop", "suppression mine", "anti-armor rounds"
+        ]
     }
 }
