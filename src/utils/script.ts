@@ -3,55 +3,79 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, Eve
 import { collectButton, collectMessage } from '../lib/collector';
 import { acceptableGamemodeTypes } from './acceptableLists'
 
-let comp, Primary, Secondary, Lethal, Tactical, Perk1, Perk2, Perk3, fieldUpgrade1, fieldUpgrade2: boolean
-
+let queries = {
+  "Comp":boolean : "",
+  "overkill":boolean : "", 
+  "primary" : "", 
+  "secondary" : "", 
+  "lethal": "", 
+  "tactical": "",
+  "basePerks":string : "", 
+  "bonusPerk": "", 
+  "ultimatePerk" : "", 
+  "fieldUpgrade1": "",
+   "fieldUpgrade2" :""
+}
+//easily build buttons
 export const buttonBuild = async (customId: string, label: string, style: ButtonStyle) => {
   return new ButtonBuilder()
         .setCustomId(customId)
         .setLabel(label)
-        .setStyle(style),
+        .setStyle(style)
 }
 
 //improved embedBuilder readability, by requiring two strings.
 export const embedBuild = async (title, description) => {
-  const embed = new EmbedBuilder()
+  return new EmbedBuilder()
     .setTitle(title)
     .setDescription(description)
-
-  return embed;
 }
 
-const compScript = async (interaction: Interaction) => {
-  const replyMessage = await interaction.edit({
-    embeds: embedBuild('Competitive or Public Matches?', 'Is this build a [comp]etitive CDL class? Or a [pub]lic match build?'),
+const allQueriesMet = async ()
+  const checkAllVars = async ( queries ) => {
+    //
+    for ( let i = 0; i++ === queries.length; i++ )
+
+  }
+
+//queries the match class type
+const compScript = () => {
+  return({
+    embeds: embedBuild('Competitive or Public Matches?', 'Is this build a competitive / CDL class? Or a public match class?'),
     components: [ buttonBuild('competitive', 'Competitive', ButtonStyle.Danger), buttonBuild('pubs', 'Public Matches', ButtonStyle.Primary) ],
     ephemeral: true
   });
+}
 
-  let resultInteraction = await collectButton(replyMessage);
-  await resultInteraction.deferUpdate();
+const postCompScript = async (resultInteraction) => {
+  if (resultInteraction.customId === 'competitive')
+    return true;
+  else
+    return false;
+}
 
-  switch (resultInteraction.customId) {
-    case 'competitive': {
-      const gamemodeType = 'competitive'
-      return gamemodeType;
-    }
-    case 'pubs': {
-      const gamemodeType = 'pubs'
-      return gamemodeType;
-    }
+const overkillScript = () => {
+  //this creates the prompt for asking the user if their casual lobby class uses overkill.
+  return {
+    embeds: embedBuild('Overkill perk?', 'If this build uses the Overkill perk, please select \'yes\', if not please select the \'no\' button.'),
+    components: [ buttonBuild( 'y', 'Yes', ButtonStyle.Primary ), buttonBuild( 'n', 'No', ButtonStyle.Primary ) ],
+    ephemeral: true
   }
 }
 
+const postOverkillScript = (resultInteraction) => {
+  if (resultInteraction.customId == 'y') { 
+    overkill = true
+} else {
+  overkill = false
+}
 
-
-const primaryScript = async (interaction: Interaction) => {
-  if (Primary === true)
+const primaryWeaponTypesScript = async (interaction: Interaction) => {
+  if (primary)
     return;
   
-  else {
     const buttons = [
-      buttonBuild('ar', 'Assault Rifle' ButtonStyle.Primary),
+      buttonBuild('ar', 'Assault Rifle', ButtonStyle.Primary),
       buttonBuild('br', 'Battle Rifle', ButtonStyle.Primary),
       buttonBuild('smg', 'Sub-Machine Gun \(SMG\)', ButtonStyle.Primary),
       buttonBuild('sg', 'Shotgun', ButtonStyle.Primary),
@@ -59,77 +83,131 @@ const primaryScript = async (interaction: Interaction) => {
       buttonBuild('mr', 'Marksman Rifle', ButtonStyle.Primary),
       buttonBuild('sr', 'Sniper Rifle', ButtonStyle.Primary),
       buttonBuild('ml', 'Melee', ButtonStyle.Primary)
-    ]
+    ];
 
-    const replyMessage = await interaction.editReply({
+    return{
       // ar, br, smg, sg, lmg, mr, sr, melee
       embeds: embedBuild('Primary Weapon Selection', 'From the buttons below, please select the weapon class of your Primary weapon.'),
       components: buttons,
       ephemeral: true
+    };
+
+
+    }
+
+
+const secondaryWeaponTypesScript = async (interaction: Interaction) => {
+  if (Primary)
+    return;
+
+  const buttons = [
+    buttonBuild('hg', 'Handgun', ButtonStyle.Primary),
+    buttonBuild('lmc', 'Launcher', ButtonStyle.Primary),
+    buttonBuild('ml', 'Melee', ButtonStyle.Primary)
+  ];
+
+  return{
+    // ar, br, smg, sg, lmg, mr, sr, melee
+    embeds: embedBuild('Secondary Weapon Selection', 'From the buttons below, please select the weapon class of your Secondary weapon.'),
+    components: buttons,
+    ephemeral: true
+  };
+
+
+  }
+
+
+//this function will create a bunch of buttons for a bot response, based off of the weapon type
+//by assigning the weapon type, this function will return an array of buttonBuilders in rows of 5
+//based off of the weaponType assigned, and the information held in the API database
+const weaponButtonsFromWeaponType = async (weaponType: string, weaponClass: string, interaction: Interaction) => {
+  
+  //fetches the primary weapon names from the api
+
+  let WeaponObject
+  //
+  const fetchPrimaryObject = await fetch(`API/${weaponClass}`).then(response => response.json)
+    .then( data => {
+      WeaponObject = data 
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error)
     })
 
-    let resultInteraction = await collectButton(replyMessage);
-    await resultInteraction.deferUpdate();
-
-    switch(resultInteraction.customId) {
-      case 'ar':{
-        const replyMessage = await interaction.editReply
-          
-        })
-      }
-    }
-  }
-}
-
-const primaryScript = async (primaryType: string, interaction: Interaction) => {
   
-  //fetches the list of specified primary from the database endpoint
-  const primaryObject = [fetch(/*add api endpoint for grabbing weapons*/ `http://apiendpoint/primaryScript?${primaryType}`)]
+  const data = JSON.parse(WeaponObject);
 
-
-  //assigned the various primaries into buttons
+  //var assignment
+  let buttons
   let buttonsInThisRow:number = 0;
-  for (i = primaryObject.length, i = 0, i+= ) {
-    if(buttonsInThisRow = 5) {
-      //make new row
-    }
-    buttonBuild(primaryObject{i})
+  //object.keys states that I just want the keys in this object
+  //data is defined above as a JSON.parse, and weaponType : ex 'primary' || 'secondary' and weaponClass ex: 'ar' || 'handgun'
+  const objectNames = Object.keys(data[weaponType])
+  let row = new ActionRowBuilder();
+  let rowCounter = 0
 
+  //for loop to create buttons for each weapon in the class 
+  for (let i = 0; i === objectNames.length; i++ ) {  
+    if( rowCounter++ === 5 ) {
+      rowCounter = 0 //deletes everything in da row
+
+      //creates a button and inserts it into the row
+      buttons.push(row);
+      row = new ActionRowBuilder()
+    }
+    row.addComponents( await buttonBuild(`${i}`, objectNames[i], ButtonStyle.Primary) );
   }
 
+  return{
+    embeds: embedBuild(`Which '${weaponType}' would you like to assign to this class creation?`, `From the buttons below, please select the ${weaponType} that you would like to assign to this class creation.`),
+    components: buttons,
+    ephemeral: true
+  };
+
 }
-
-
 
 
 export const speakScript = async (interaction, userId) => {
 
-  //once the 'Begin' button is clicked:
-  let comp, Primary, Secondary, Lethal, Tactical, Perk1, Perk2, Perk3, fieldUpgrade1, fieldUpgrade2: boolean
 
 
-  await interaction.editReply({
-    embeds: embedBuild('What would you like to select?', ''),
-    components: [ ],
-    ephemeral: true 
+  //establishes if the build is for CDL (cdl classes have different rules)
+  let replyMessage = await interaction.editReply({
+    compScript
   })
+  let resultInteraction = await collectButton(replyMessage);
+  let comp = postCompScript(resultInteraction);
+  await resultInteraction.deferUpdate();
 
-  let reply = await collectMessage(interaction.channel as GuildTextBasedChannel, interaction.user.id);
-
-  await interaction.editReply({
-    embeds: embedBuild('What is the category of the primary weapon of this class?', '[AR] Assault Rifle, [SMG] Sub-machine gun, [BR] Battle Rifle, [SG] Shotgun, [LMG] Light Machine-Gun, [MR] Marksman Rifles, [SR] Sniper Rifles'),
-    ephemeral: true
+//checks if the user is using overkill.... second guessing the importance of this
+  if (await comp === true) {
+    break;
+  } else {
+  let buttonReply = await interaction.editReply({
+    overkillScript   
   });
 
-  let reply2 = await collectMessage(interaction.channel as GuildTextBasedChannel, interaction.user.id);
-  const primaryWeaponType: string = reply2.content
+  let resultInteraction = await collectButton(buttonReply);
+  let overkill = postOverkillScript(resultInteraction);
+  await resultInteraction.deferUpdate();
+  }
 
-  await interaction.editReply({
-    embeds: embedBuild('Please state the gun that you are using.', 'This promp is NOT CaSe sensitive, but is space sensitive For example, you could insert "kastov 74-u" for the Kastov 74-u'),
-    ephemeral: true
-  });
+  //begin message while loop
+  while (!allQueriesMet) {
 
-  let reply3 = await collectMessage(interaction.channel as GuildTextBasedChannel, interaction.user.id);
-  const primaryWeaponGun: string = reply3.content
+  }
+
+
+
+  //let reply2 = await collectMessage(interaction.channel as GuildTextBasedChannel, interaction.user.id);
+  //const primaryWeaponType: string = reply2.content
+//
+  //await interaction.editReply({
+  //  embeds: embedBuild('Please state the gun that you are using.', 'This promp is NOT CaSe sensitive, but is space sensitive For example, you could insert "kastov 74-u" for the Kastov 74-u'),
+  //  ephemeral: true
+  //});
+//
+  //let reply3 = await collectMessage(interaction.channel as GuildTextBasedChannel, interaction.user.id);
+  //const primaryWeaponGun: string = reply3.content
 
 };
