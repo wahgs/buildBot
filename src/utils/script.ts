@@ -3,19 +3,12 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, Eve
 import { collectButton, collectMessage } from '../lib/collector';
 import { acceptableGamemodeTypes } from './acceptableLists'
 
-let queries = {
-  "Comp":boolean : "",
-  "overkill":boolean : "", 
-  "primary" : "", 
-  "secondary" : "", 
-  "lethal": "", 
-  "tactical": "",
-  "basePerks":string : "", 
-  "bonusPerk": "", 
-  "ultimatePerk" : "", 
-  "fieldUpgrade1": "",
-   "fieldUpgrade2" :""
-}
+
+//assigns variables
+let comp:boolean, overkill: boolean, primary: string, secondary:string, lethal:string, tactical:string, basePerks:string[], bonusPerk:string,
+ultimatePerk:string, fieldUpgrade1:string, fieldUpgrade2:string
+
+
 //easily build buttons
 export const buttonBuild = async (customId: string, label: string, style: ButtonStyle) => {
   return new ButtonBuilder()
@@ -24,6 +17,7 @@ export const buttonBuild = async (customId: string, label: string, style: Button
         .setStyle(style)
 }
 
+
 //improved embedBuilder readability, by requiring two strings.
 export const embedBuild = async (title, description) => {
   return new EmbedBuilder()
@@ -31,12 +25,8 @@ export const embedBuild = async (title, description) => {
     .setDescription(description)
 }
 
-const allQueriesMet = async ()
-  const checkAllVars = async ( queries ) => {
-    //
-    for ( let i = 0; i++ === queries.length; i++ )
 
-  }
+
 
 //queries the match class type
 const compScript = () => {
@@ -66,8 +56,9 @@ const overkillScript = () => {
 const postOverkillScript = (resultInteraction) => {
   if (resultInteraction.customId == 'y') { 
     overkill = true
-} else {
-  overkill = false
+  } else {
+    overkill = false
+  }
 }
 
 const primaryWeaponTypesScript = async (interaction: Interaction) => {
@@ -129,7 +120,7 @@ const weaponButtonsFromWeaponType = async (weaponType: string, weaponClass: stri
   const fetchPrimaryObject = await fetch(`API/${weaponClass}`).then(response => response.json)
     .then( data => {
       WeaponObject = data 
-    })
+    }
     .catch(error => {
       console.error('Error fetching data: ', error)
     })
@@ -166,6 +157,26 @@ const weaponButtonsFromWeaponType = async (weaponType: string, weaponClass: stri
 
 }
 
+//creates a loop for messages
+let buildVariables = [comp, overkill, primary, secondary, lethal, tactical, basePerks, bonusPerk, ultimatePerk, fieldUpgrade1, fieldUpgrade2]
+const messageLoop = async (variables: ) => {
+
+
+
+  while (buildVariables.every((variable) => typeof variable !== "undefined") {
+    
+
+
+    let buttons, rows
+    for (let buildVar = 0; buildVar = buildVariables.length; buildVar++ ) {
+      if ( typeof buildVariables[buildVar] === "undefined" ) {
+        buttons.join(buttonBuild(Object.keys({buildVariables[buildVar]})[0], ', ButtonStyle.Primary))
+      } //WHY WONT IT LET ME PUT THE OBJECT INTO A STRINGGGG
+    }
+
+  }
+}
+
 
 export const speakScript = async (interaction, userId) => {
 
@@ -193,7 +204,6 @@ export const speakScript = async (interaction, userId) => {
   }
 
   //begin message while loop
-  while (!allQueriesMet) {
 
   }
 
